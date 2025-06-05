@@ -1,10 +1,10 @@
-add_library(Point)
+add_library(Vector)
 
-target_sources(Point PRIVATE 
-../src/pointlib/point.cpp 
+target_sources(Vector PRIVATE 
+../src/libVector/vector.cpp 
 
-./pointlib/point.hpp 
+./libVector/vector.hpp 
 
 )
 
-target_include_directories(Point PUBLIC .)
+target_include_directories(Vector PUBLIC .)
