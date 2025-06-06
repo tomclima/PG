@@ -1,10 +1,15 @@
-add_library(Prism)
+add_library(Prism SHARED src/vector.cpp)
 
-target_sources(Prism PRIVATE 
-    src/vector.cpp
+include(GenerateExportHeader)
+generate_export_header(Prism)
+
+target_include_directories(Prism PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    "${CMAKE_CURRENT_BINARY_DIR}"
 )
 
-target_include_directories(Prism PUBLIC 
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
+install(TARGETS Prism
+    RUNTIME DESTINATION bin   # Para .dll no Windows
+    LIBRARY DESTINATION lib   # Para .so no Linux, .dylib no macOS
+    ARCHIVE DESTINATION lib   # Para .lib no Windows (bibliotecas de importação)
 )

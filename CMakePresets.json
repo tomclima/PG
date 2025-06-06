@@ -1,0 +1,45 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "debug-tests-on",
+            "displayName": "Debug",
+            "description": "Compila em modo Debug com testes ativados. Ideal para desenvolvimento.",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/debug",
+            "installDir": "${sourceDir}/install/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_TESTING": "ON"
+            }
+        },
+        {
+            "name": "release-tests-off",
+            "displayName": "Release",
+            "description": "Compila em modo Release otimizado para produção, sem testes.",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/release",
+            "installDir": "${sourceDir}/install/release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_TESTING": "OFF"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug-tests-on"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release-tests-off"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "debug-test",
+            "configurePreset": "debug-tests-on"
+        }
+    ]
+}

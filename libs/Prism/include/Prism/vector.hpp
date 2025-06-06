@@ -1,6 +1,8 @@
 #ifndef PRISM_VECTOR_HPP_
 #define PRISM_VECTOR_HPP_
 
+#include "prism_export.h"
+
 using ld = long double;
 
 /**
@@ -17,7 +19,7 @@ namespace Prism {
  * The Vector class supports arithmetic operations, dot and cross products, normalization,
  * and comparison operators. All operations are performed in 3D space.
  */
-class Vector3 {
+class PRISM_EXPORT Vector3 {
     public:
         /**
          * @brief Constructs a Vector with given x, y, z components.
