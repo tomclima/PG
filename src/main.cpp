@@ -1,10 +1,8 @@
 #include <iostream>
 #include "Prism/vector.hpp"
+#include "ObjReader/ObjReader.hpp"
 
 int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(0);
-
     Prism::Vector3 v1(1,2,3);
     Prism::Vector3 v2(4,5,6);
 
@@ -14,6 +12,11 @@ int main() {
     std::cout << "Vector 3 (v1 + v2): (" << v3.x << ", " << v3.y << ", " << v3.z << ")" << std::endl;
     
     std::cout << "Hello, Sílvio!" << std::endl;
+
+    objReader obj("data/inputs/cubo.obj");
+
+    obj.print_faces();
+   
 
     return 0;
 }

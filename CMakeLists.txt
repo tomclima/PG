@@ -27,3 +27,5 @@ if(BUILD_TESTING)
   ###
   add_subdirectory(tests)
 endif()
+
+install(DIRECTORY data DESTINATION bin)
