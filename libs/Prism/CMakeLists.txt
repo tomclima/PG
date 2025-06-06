@@ -1,4 +1,7 @@
-add_library(Prism SHARED src/vector.cpp)
+add_library(Prism SHARED 
+    src/vector.cpp
+    src/point.cpp
+)
 
 include(GenerateExportHeader)
 generate_export_header(Prism)

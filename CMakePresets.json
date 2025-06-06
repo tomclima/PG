@@ -17,7 +17,7 @@
             "displayName": "Release",
             "description": "Builds in Release mode, optimized for production, without tests.",
             "binaryDir": "${sourceDir}/build/release",
-            "installDir": "${sourceOrurceDir}/install/release",
+            "installDir": "${sourceDir}/install/release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 "BUILD_TESTING": "OFF"
@@ -37,7 +37,11 @@
     "testPresets": [
         {
             "name": "test",
-            "configurePreset": "debug"
+            "configurePreset": "debug",
+            "output": {
+                "outputOnFailure": true,
+                "verbosity": "verbose" 
+            }
         }
     ]
 }

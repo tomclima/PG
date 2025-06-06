@@ -1,14 +1,9 @@
-#include <gtest/gtest.h>
 #include "Prism/vector.hpp"
+#include "utils.hpp"
+#include <gtest/gtest.h>
 
 using Prism::Vector3;
 using ld = long double;
-
-void AssertVectorAlmostEqual(const Vector3& v1, const Vector3& v2, ld eps = 1e-9) {
-    ASSERT_NEAR(v1.x, v2.x, eps);
-    ASSERT_NEAR(v1.y, v2.y, eps);
-    ASSERT_NEAR(v1.z, v2.z, eps);
-}
 
 TEST(Vector3Test, ConstructorsAndAssignment) {
     Vector3 v1(1.0, 2.0, 3.0);
@@ -54,13 +49,13 @@ TEST(Vector3Test, ScalarMultiplicationAndDivision) {
     Vector3 v1(1, 2, 3);
     Vector3 v2 = v1 * 2.0;
     ASSERT_EQ(v2, Vector3(2, 4, 6));
-    
+
     v2 *= 0.5;
     AssertVectorAlmostEqual(v2, Vector3(1, 2, 3));
 
     Vector3 v3 = v1 / 2.0;
     AssertVectorAlmostEqual(v3, Vector3(0.5, 1, 1.5));
-    
+
     ASSERT_THROW(v1 / 0.0, std::invalid_argument);
     ASSERT_THROW(v1 /= 0.0, std::invalid_argument);
 }
@@ -68,7 +63,7 @@ TEST(Vector3Test, ScalarMultiplicationAndDivision) {
 TEST(Vector3Test, DotAndCrossProduct) {
     Vector3 v1(1, 2, 3), v2(4, -5, 6);
 
-    ld expected_dot = 1*4 + 2*(-5) + 3*6;
+    ld expected_dot = 1 * 4 + 2 * (-5) + 3 * 6;
     ASSERT_NEAR(v1.dot(v2), expected_dot, 1e-9);
     ASSERT_NEAR(v1 * v2, expected_dot, 1e-9);
 
