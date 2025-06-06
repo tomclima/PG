@@ -20,8 +20,8 @@ The following presets are available:
 
 1.  **Clone the repository:**
     ```sh
-    git clone <your-repository-url>
-    cd PG-Prism_development
+    git clone <repository-url>
+    cd <repository-name>
     ```
 
 2.  **Configure the project using a preset:**
