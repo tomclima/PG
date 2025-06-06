@@ -1,3 +1,10 @@
-add_executable(Vector3_Tests Vector3.cpp)
-target_link_libraries(Vector3_Tests PRIVATE include gtest_main)
-add_test(NAME VectorTests COMMAND Vector3_Tests)
+
+add_executable(runTests
+    Vector3.cpp
+    Point3.cpp
+    utils.cpp
+)
+
+target_link_libraries(runTests PRIVATE include gtest_main)
+
+add_test(NAME UnitTests COMMAND runTests)

@@ -1,14 +1,9 @@
 #include "Prism/vector.hpp"
+#include "utils.hpp"
 #include <gtest/gtest.h>
 
 using Prism::Vector3;
 using ld = long double;
-
-void AssertVectorAlmostEqual(const Vector3& v1, const Vector3& v2, ld eps = 1e-9) {
-    ASSERT_NEAR(v1.x, v2.x, eps);
-    ASSERT_NEAR(v1.y, v2.y, eps);
-    ASSERT_NEAR(v1.z, v2.z, eps);
-}
 
 TEST(Vector3Test, ConstructorsAndAssignment) {
     Vector3 v1(1.0, 2.0, 3.0);
