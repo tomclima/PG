@@ -1,4 +1,5 @@
 #include "Prism/vector.hpp"
+#include "Prism/point.hpp"
 
 #include <cmath>
 #include <stdexcept>
@@ -9,7 +10,21 @@ namespace Prism {
 
 Vector3::Vector3(ld x, ld y, ld z) : x(x), y(y), z(z) {
 }
+
 Vector3::Vector3(const Vector3& v) : x(v.x), y(v.y), z(v.z) {
+}
+
+Vector3::Vector3(const Point3& v) : x(v.x), y(v.y), z(v.z) {
+}
+
+Vector3::Vector3(std::initializer_list<ld> coords) {
+    if (coords.size() != 3) {
+        throw std::invalid_argument("Initializer list must contain exactly three elements.");
+    }
+    auto it = coords.begin();
+    x = *it++;
+    y = *it++;
+    z = *it;
 }
 
 bool Vector3::operator==(const Vector3& v) const {
@@ -111,6 +126,10 @@ ld Vector3::operator*(const Vector3& v) const {
 
 Vector3 Vector3::cross(const Vector3& v) const {
     return Vector3(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+}
+
+Vector3 Vector3::operator^(const Vector3& v) const {
+    return cross(v);
 }
 
 ld Vector3::magnitude() const {
