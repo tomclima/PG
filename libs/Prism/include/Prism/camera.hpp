@@ -3,19 +3,20 @@
 
 #include "prism_export.h"
 #include <initializer_list>
+#include <vector>
 namespace Prism {
 
 using ld = long double;
 
 class Vector3; // Forward declaration of Vector3 class
 class Point3;
-template<typename T>
-class Matrix;
+class Object;
+template <typename T> class Matrix;
 
 /**
  * @class Camera
  * @brief Represents a camera in 3D space
- * 
+ *
  * The Point3 class represents a point in 3D space with x, y, and z coordinates.
  */
 class PRISM_EXPORT Camera {
@@ -29,20 +30,26 @@ class PRISM_EXPORT Camera {
      * @param height The physical height of the screen (view plane).
      * @param width The physical width of the screen (view plane).
      */
-    Camera(const Point3 &position, const Point3 &target, const Vector3 &upvec, const ld& distance, const ld& height, const ld&width);
+    Camera(const Point3& position, const Point3& target, const Vector3& upvec, const ld& distance,
+           const ld& height, const ld& width);
 
-    
-    Point3 *pos;
-    Point3 *aim;
-    Vector3 *up;
+    /**
+     * @brief calculates the vectors associated with the center of the pixels of the screen and
+     returns a std::vector with all pixel positions in the camera coordinate system
+     * @param objects vector of pointers to the objects of the scene
+     */
 
-    Matrix<ld> *coordinate_basis;
+    void CastRays(const std::vector<Object*>& objects);
+
+    Point3* pos;
+    Point3* aim;
+    Vector3* up;
+
+    Matrix<ld>* coordinate_basis;
 
     ld screen_distance;
     ld screen_height;
     ld screen_width;
-
-
 };
 
 } // namespace Prism

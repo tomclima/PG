@@ -8,12 +8,11 @@ namespace Prism {
 
 using ld = long double;
 
-class Vector3; // Forward declaration of Vector3 class
-class Point3; // Forward declaration of Point3 class
-template<typename T>
-class Matrix; // Forward declaration of Matrix class
-class Object; // Forward declaration of Object class
-struct HitRecord; // Forward declaration of HitRecord struct
+class Vector3;                      // Forward declaration of Vector3 class
+class Point3;                       // Forward declaration of Point3 class
+template <typename T> class Matrix; // Forward declaration of Matrix class
+class Object;                       // Forward declaration of Object class
+struct HitRecord;                   // Forward declaration of HitRecord struct
 
 /**
  * @class Ray
@@ -26,32 +25,27 @@ class PRISM_EXPORT Ray {
      * @param origin Point in 3d space that originates the ray.
      * @param direction normalized vector representing the direction which the ray points towards.
      */
-    Ray(const Point3 &origin, const Vector3 &direction);
+    Ray(const Point3& origin, const Vector3& direction);
     /**
      * @brief Constucts a ray that goes from its origin torwards another given point
      * @param origin Point in 3d space that originates the ray.
      * @param target Point which the ray targets
      */
-    Ray(const Point3 &origin, const Point3 &target);
+    Ray(const Point3& origin, const Point3& target);
     /**
-     * @brief Casts rays and verifies first intersection with object
+     * @brief Casts rays and verifies first intersection with object. if none occurs, returns t_max
      * @param objects vector of objects within the scene
+     * @param t_min minimum distance (in front of screen usually)
      * @param t_max maximum distance at which intersections are verified
      */
-    HitRecord Gethit(const std :: vector<Object*>& objects, const ld &t_min, const ld& t_max);
+    HitRecord Gethit(const std ::vector<Object*>& objects, const ld& t_min, const ld& t_max);
     /**
      * @brief gets the direction of ray. if not instantiated, returns null
      */
     Vector3* Direction() const;
 
-
-    
-    Point3 *origin;
-    Vector3 *direction;
-
-
-
-
+    Point3* origin;
+    Vector3* direction;
 };
 
 } // namespace Prism

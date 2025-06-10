@@ -16,7 +16,7 @@ TEST(MatrixTest, Construction) {
         }
     }
 
-    Matrix<int> m2 = { {1, 2, 3}, {4, 5, 6} };
+    Matrix<int> m2 = {{1, 2, 3}, {4, 5, 6}};
     ASSERT_EQ(m2.getRows(), 2);
     ASSERT_EQ(m2.getCols(), 3);
     ASSERT_EQ(m2[1][1], 5);
@@ -25,7 +25,7 @@ TEST(MatrixTest, Construction) {
     ASSERT_TRUE(m3 == m2);
 
     ASSERT_THROW(Matrix<int> m_err(0, 5), std::invalid_argument);
-    ASSERT_THROW(([](){ Matrix<int> m_err_list = { {1, 2}, {3} }; })(), std::invalid_argument);
+    ASSERT_THROW(([]() { Matrix<int> m_err_list = {{1, 2}, {3}}; })(), std::invalid_argument);
 }
 
 TEST(MatrixTest, AccessAndAssignment) {
@@ -58,7 +58,7 @@ TEST(MatrixTest, Equality) {
 }
 
 TEST(MatrixTest, Multiplication) {
-    Matrix<double> m1 = {{1, 2, 3}, {4, 5, 6}}; // 2x3
+    Matrix<double> m1 = {{1, 2, 3}, {4, 5, 6}};      // 2x3
     Matrix<double> m2 = {{7, 8}, {9, 10}, {11, 12}}; // 3x2
 
     Matrix<double> result = m1 * m2;
