@@ -2,7 +2,8 @@
 add_executable(runTests
     Vector3.cpp
     Point3.cpp
-    utils.cpp
+    Matrix.cpp
+    Utils.cpp
 )
 
 target_link_libraries(runTests PRIVATE include gtest_main)

@@ -1,5 +1,5 @@
 #include "Prism/vector.hpp"
-#include "utils.hpp"
+#include "TestHelpers.hpp"
 #include <gtest/gtest.h>
 
 using Prism::Vector3;
@@ -17,6 +17,8 @@ TEST(Vector3Test, ConstructorsAndAssignment) {
     Vector3 v3(0, 0, 0);
     v3 = v1;
     ASSERT_EQ(v3, v1);
+    Vector3 v4({4.0, 5.0, 6.0});
+    ASSERT_EQ(v4, Vector3({4.0, 5.0, 6.0}));
 }
 
 TEST(Vector3Test, EqualityOperators) {
