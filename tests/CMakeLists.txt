@@ -4,6 +4,7 @@ add_executable(runTests
     Point3.cpp
     Matrix.cpp
     Utils.cpp
+    camera.cpp
 )
 
 target_link_libraries(runTests PRIVATE include gtest_main)
