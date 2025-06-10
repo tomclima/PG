@@ -3,6 +3,7 @@
 #include "Prism/point.hpp"
 #include "Prism/vector.hpp"
 #include "Prism/matrix.hpp"
+#include "TestHelpers.hpp"
 
 using Prism::Camera;
 using Prism::Point3;
@@ -44,4 +45,72 @@ TEST(CameraTest, Instantiation) {
     EXPECT_DOUBLE_EQ(cam.screen_distance, distance);
     EXPECT_DOUBLE_EQ(cam.screen_height, height);
     EXPECT_DOUBLE_EQ(cam.screen_width, width);
+}
+
+TEST(CameraTest, CoordinateBasisOrthonormal) {
+    // Arrange
+    Point3 position(1.0L, 2.0L, 3.0L);
+    Point3 target(4.0L, 5.0L, 6.0L);
+    Vector3 upvec(0.0L, 1.0L, 0.0L);
+
+    ld distance = 10.0L;
+    ld height = 5.0L;
+    ld width = 8.0L;
+
+    // Act
+    Camera cam(position, target, upvec, distance, height, width);
+    ASSERT_NE(cam.coordinate_basis, nullptr);
+
+    // Extract basis matrix and columns
+    const Matrix<ld>& basis = *cam.coordinate_basis;
+    auto getCol = [&](int c) {
+        return Vector3{ basis[0][c], basis[1][c], basis[2][c] };
+    };
+
+    // Expected first basis vector: normalized (position - target)
+    Vector3 dir = (position - target).normalize();
+    Vector3 b1 = getCol(0);
+    Vector3 b2 = getCol(1);
+    Vector3 b3 = getCol(2);
+
+    // Assert alignment of first basis
+    AssertVectorAlmostEqual(b1, dir);
+
+    // Assert unit length
+    ASSERT_NEAR(b1.magnitude(), 1.0L, 1e-9);
+    ASSERT_NEAR(b2.magnitude(), 1.0L, 1e-9);
+    ASSERT_NEAR(b3.magnitude(), 1.0L, 1e-9);
+
+    // Assert orthogonality
+    ASSERT_NEAR(b1.dot(b2), 0.0L, 1e-9);
+    ASSERT_NEAR(b1.dot(b3), 0.0L, 1e-9);
+    ASSERT_NEAR(b2.dot(b3), 0.0L, 1e-9);
+}
+
+TEST(CameraTest, BasisHasOpposite){ // verifies if basis contains vector opposite to target - position
+     Point3 position(1.0L, 2.0L, 3.0L);
+    Point3 target(4.0L, 5.0L, 6.0L);
+    Vector3 upvec(0.0L, 1.0L, 0.0L);
+
+    ld distance = 10.0L;
+    ld height = 5.0L;
+    ld width = 8.0L;
+
+    // Act
+    Camera cam(position, target, upvec, distance, height, width);
+    ASSERT_NE(cam.coordinate_basis, nullptr);
+
+    // Extract basis matrix and columns
+    const Matrix<ld>& basis = *cam.coordinate_basis;
+    auto getCol = [&](int c) {
+        return Vector3{ basis[0][c], basis[1][c], basis[2][c] };
+    };
+
+    // Expected first basis vector: normalized (position - target)
+    Vector3 dir = (position - target).normalize();
+    Vector3 b1 = getCol(0);
+    Vector3 b2 = getCol(1);
+    Vector3 b3 = getCol(2);
+
+    AssertVectorAlmostEqual(b1, ((target - position)*-1).normalize());
 }
