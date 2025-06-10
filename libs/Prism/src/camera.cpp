@@ -2,7 +2,7 @@
 #include "Prism/point.hpp"
 #include "Prism/matrix.hpp"
 #include "Prism/camera.hpp"
-
+#include "Prism/utils.hpp"
 #include <cmath>
 #include <stdexcept>
 
@@ -27,6 +27,13 @@ Camera::Camera(const Point3 &position, const Point3 &target, const Vector3 &upve
     screen_height = height;
     screen_distance = distance;
     screen_width = width;
+
+    Matrix<ld> *newbasis = new Matrix<ld>;
+
+    *newbasis = orthonormalBasisContaining(position - target);
+    
+    coordinate_basis = newbasis;
+
 }
 
 
