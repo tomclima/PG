@@ -4,6 +4,7 @@
 #include "prism_export.h"
 #include "Prism/point.hpp"
 #include "Prism/vector.hpp"
+#include "Prism/ray.hpp"
 
 namespace Prism {
 
@@ -20,8 +21,8 @@ struct HitRecord {
     bool front_face;
 
     inline void set_face_normal(const Ray& ray, const Vector3& outward_normal) {
-        front_face = ray.direction().dot(outward_normal) < 0;
-        normal = front_face ? outward_normal : -outward_normal;
+        front_face = (ray.Direction())->dot(outward_normal) < 0;
+        normal = front_face ? outward_normal : outward_normal*-1;
     }
 };
 
