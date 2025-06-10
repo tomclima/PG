@@ -3,6 +3,7 @@ add_library(Prism SHARED
     src/point.cpp
     src/utils.cpp
     src/camera.cpp
+    src/ray.cpp
 )
 
 include(GenerateExportHeader)
