@@ -13,6 +13,13 @@ namespace Prism {
 template<typename T>
 class PRISM_EXPORT Matrix {
   public:
+
+  /**
+     * @brief Default constructor for matrix. If no arguments are given, constructs a 3x3 matrix with all entries 0
+     */
+    Matrix() : rows_(3), cols_(3), data_(3, std::vector<T>(3, 0)){
+    };
+
     /**
      * @brief Constructs a Matrix with given dimensions and initializes all elements to zero.
      * @param rows The number of rows in the matrix.
