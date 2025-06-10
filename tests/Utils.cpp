@@ -5,11 +5,11 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-using Prism::Point3;
-using Prism :: Vector3;
-using Prism :: Matrix;
-using Prism:: orthonormalBasisContaining;
 using Prism::centroid;
+using Prism ::Matrix;
+using Prism::orthonormalBasisContaining;
+using Prism::Point3;
+using Prism ::Vector3;
 using ld = long double;
 
 TEST(UtilsTest, CentroidOfMultiplePoints) {
@@ -46,10 +46,10 @@ TEST(UtilsTest, CentroidOfSymmetricPoints) {
 }
 
 TEST(UtilsTest, CentroidThrowsOnEmptyList) {
-    // Verify that calling centroid with an empty list of points throws an invalid_argument exception.
+    // Verify that calling centroid with an empty list of points throws an invalid_argument
+    // exception.
     ASSERT_THROW(centroid({}), std::invalid_argument);
 }
-
 
 // Helper function to extract a column vector from a 3x3 matrix
 Vector3 GetColumn(const Matrix<ld>& m, int col) {

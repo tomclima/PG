@@ -12,7 +12,7 @@ class Vector3; // Forward declaration of Vector3 class
 /**
  * @class Point3
  * @brief Represents a point in 3D space and provides common points operations.
- * 
+ *
  * The Point3 class represents a point in 3D space with x, y, and z coordinates.
  */
 class PRISM_EXPORT Point3 {
@@ -48,14 +48,14 @@ class PRISM_EXPORT Point3 {
      * @param p The point to assign from.
      * @return Reference to this point.
      */
-    Point3 operator= (const Point3& p);
+    Point3 operator=(const Point3& p);
 
     /**
      * @brief Checks if two points are equal.
      * @param p The point to compare with.
      * @return True if all coordinates are equal, false otherwise.
      */
-    bool operator== (const Point3& p) const;
+    bool operator==(const Point3& p) const;
 
     /**
      * @brief Gets a vector from this point to another point.

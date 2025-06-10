@@ -1,15 +1,15 @@
-#include <gtest/gtest.h>
 #include "Prism/ray.hpp"
+#include "Prism/objects.hpp"
 #include "Prism/point.hpp"
 #include "Prism/vector.hpp"
-#include "Prism/objects.hpp"
 #include "TestHelpers.hpp"
+#include <gtest/gtest.h>
 
 using namespace Prism;
 using std::vector;
 
 class DummyObject : public Object {
-public:
+  public:
     bool hit(const Ray& ray, ld t_min, ld t_max, HitRecord& rec) const override {
         rec.t = 2.0L;
         rec.p = Point3(1.0L, 1.0L, 1.0L);
@@ -60,7 +60,7 @@ TEST(RayTest, GethitFindsIntersection) {
     Ray ray(origin, dir);
 
     DummyObject obj;
-    vector<Object*> objects = { &obj };
+    vector<Object*> objects = {&obj};
 
     ld t_min = 0.001L;
     ld t_max = 1000.0L;

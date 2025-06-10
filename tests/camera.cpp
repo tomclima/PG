@@ -1,14 +1,14 @@
-#include <gtest/gtest.h>
 #include "Prism/camera.hpp"
+#include "Prism/matrix.hpp"
 #include "Prism/point.hpp"
 #include "Prism/vector.hpp"
-#include "Prism/matrix.hpp"
 #include "TestHelpers.hpp"
+#include <gtest/gtest.h>
 
 using Prism::Camera;
+using Prism::Matrix;
 using Prism::Point3;
 using Prism::Vector3;
-using Prism::Matrix;
 using ld = long double;
 
 TEST(CameraTest, Instantiation) {
@@ -63,9 +63,7 @@ TEST(CameraTest, CoordinateBasisOrthonormal) {
 
     // Extract basis matrix and columns
     const Matrix<ld>& basis = *cam.coordinate_basis;
-    auto getCol = [&](int c) {
-        return Vector3{ basis[0][c], basis[1][c], basis[2][c] };
-    };
+    auto getCol = [&](int c) { return Vector3{basis[0][c], basis[1][c], basis[2][c]}; };
 
     // Expected first basis vector: normalized (position - target)
     Vector3 dir = (position - target).normalize();
@@ -87,8 +85,9 @@ TEST(CameraTest, CoordinateBasisOrthonormal) {
     ASSERT_NEAR(b2.dot(b3), 0.0L, 1e-9);
 }
 
-TEST(CameraTest, BasisHasOpposite){ // verifies if basis contains vector opposite to target - position
-     Point3 position(1.0L, 2.0L, 3.0L);
+TEST(CameraTest,
+     BasisHasOpposite) { // verifies if basis contains vector opposite to target - position
+    Point3 position(1.0L, 2.0L, 3.0L);
     Point3 target(4.0L, 5.0L, 6.0L);
     Vector3 upvec(0.0L, 1.0L, 0.0L);
 
@@ -102,9 +101,7 @@ TEST(CameraTest, BasisHasOpposite){ // verifies if basis contains vector opposit
 
     // Extract basis matrix and columns
     const Matrix<ld>& basis = *cam.coordinate_basis;
-    auto getCol = [&](int c) {
-        return Vector3{ basis[0][c], basis[1][c], basis[2][c] };
-    };
+    auto getCol = [&](int c) { return Vector3{basis[0][c], basis[1][c], basis[2][c]}; };
 
     // Expected first basis vector: normalized (position - target)
     Vector3 dir = (position - target).normalize();
@@ -112,5 +109,5 @@ TEST(CameraTest, BasisHasOpposite){ // verifies if basis contains vector opposit
     Vector3 b2 = getCol(1);
     Vector3 b3 = getCol(2);
 
-    AssertVectorAlmostEqual(b1, ((target - position)*-1).normalize());
+    AssertVectorAlmostEqual(b1, ((target - position) * -1).normalize());
 }
