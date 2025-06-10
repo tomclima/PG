@@ -1,13 +1,12 @@
 #ifndef TESTS_TESTHELPERS_HPP
 #define TESTS_TESTHELPERS_HPP
 
+#include "Prism/matrix.hpp"
 #include "Prism/point.hpp"
 #include "Prism/vector.hpp"
 #include <gtest/gtest.h>
-#include "Prism/matrix.hpp"
 
-
-namespace Prism {   
+namespace Prism {
 using ld = long double;
 
 /**
@@ -48,7 +47,7 @@ inline void AssertVectorAlmostEqual(const Vector3& v1, const Vector3& v2, ld eps
  * @note This function checks that both matrices have the same number of rows and columns,
  *       and then compares each corresponding element using ASSERT_NEAR.
  */
-template<typename T>
+template <typename T>
 void AssertMatrixAlmostEqual(const Matrix<T>& m1, const Matrix<T>& m2, ld eps = 1e-9) {
     ASSERT_EQ(m1.getRows(), m2.getRows());
     ASSERT_EQ(m1.getCols(), m2.getCols());

@@ -1,15 +1,16 @@
 #ifndef PRISM_OBJECT_HPP_
 #define PRISM_OBJECT_HPP_
 
-#include "prism_export.h"
 #include "Prism/point.hpp"
+#include "Prism/ray.hpp"
 #include "Prism/vector.hpp"
+#include "prism_export.h"
 
 namespace Prism {
 
 using ld = long double;
 
-class Ray; // Forward declaration of Ray class
+class Ray;      // Forward declaration of Ray class
 class Material; // Forward declaration of Material class
 
 struct HitRecord {
@@ -20,8 +21,8 @@ struct HitRecord {
     bool front_face;
 
     inline void set_face_normal(const Ray& ray, const Vector3& outward_normal) {
-        front_face = ray.direction().dot(outward_normal) < 0;
-        normal = front_face ? outward_normal : -outward_normal;
+        front_face = (ray.Direction())->dot(outward_normal) < 0;
+        normal = front_face ? outward_normal : outward_normal * -1;
     }
 };
 

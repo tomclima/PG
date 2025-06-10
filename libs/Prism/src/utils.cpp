@@ -30,7 +30,7 @@ Matrix<ld> orthonormalBasisContaining(const Vector3& v) {
     Vector3 temp = std::abs(v1.x) < 0.9 ? Vector3{1, 0, 0} : Vector3{0, 1, 0};
 
     // Step 3: Orthonormalize: v2 = (temp - proj_v1(temp)).normalize()
-    Vector3 proj = v1 * (v1.dot(temp)); // projection of temp onto v1
+    Vector3 proj = v1 * (v1.dot(temp));             // projection of temp onto v1
     Vector3 orthogonal = (temp - proj).normalize(); // v2
 
     // Step 4: v3 = v1 × v2
@@ -46,11 +46,5 @@ Matrix<ld> orthonormalBasisContaining(const Vector3& v) {
 
     return basis;
 }
-
-
-
-
-
-
 
 } // namespace Prism
