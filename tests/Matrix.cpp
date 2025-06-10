@@ -1,4 +1,4 @@
-#include "Prism/Matrix.hpp"
+#include "Prism/matrix.hpp"
 #include "TestHelpers.hpp"
 #include <gtest/gtest.h>
 
@@ -76,4 +76,17 @@ TEST(MatrixTest, Multiplication) {
 
     m_scalar *= 2.0;
     ASSERT_TRUE(m_scalar == expected_scalar);
+}
+
+TEST(MatrixTest, DefaultConstructorCreates3x3ZeroMatrix) {
+    Matrix<double> m;
+
+    ASSERT_EQ(m.getRows(), 3);
+    ASSERT_EQ(m.getCols(), 3);
+
+    for (size_t i = 0; i < 3; ++i) {
+        for (size_t j = 0; j < 3; ++j) {
+            ASSERT_DOUBLE_EQ(m[i][j], 0);
+        }
+    }
 }
