@@ -1,7 +1,6 @@
 #include "Prism/point.hpp"
 #include "Prism/vector.hpp"
-#include "TestHelpers.hpp"
-#include "Prism/utils.hpp"
+#include "utils.hpp"
 #include <gtest/gtest.h>
 
 using Prism::Point3;
@@ -20,9 +19,6 @@ TEST(Point3Test, ConstructorsAndAssignment) {
     Point3 p3(0, 0, 0);
     p3 = p1;
     AssertPointAlmostEqual(p3, p1);
-
-    Point3 p4{4.0, 5.0, 6.0};
-    AssertPointAlmostEqual(p4, Point3({4.0, 5.0, 6.0}));
 }
 
 TEST(Point3Test, Subtraction) {
@@ -33,16 +29,4 @@ TEST(Point3Test, Subtraction) {
     Point3 p3(10, 10, 10);
     Vector3 v2 = p3 - p1;
     AssertVectorAlmostEqual(v2, Vector3(5, 3, 1));
-}
-
-TEST(Point3Test, Centroid) {
-    Point3 p1(1, 2, 3);
-    Point3 p2(4, 5, 6);
-    Point3 p3(7, 8, 9);
-    
-    auto centroid = Prism::centroid({p1, p2, p3});
-    AssertPointAlmostEqual(centroid, Point3(4, 5, 6));
-    
-    // Test with an empty list
-    ASSERT_THROW(Prism::centroid({}), std::invalid_argument);
 }

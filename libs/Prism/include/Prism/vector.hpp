@@ -2,7 +2,8 @@
 #define PRISM_VECTOR_HPP_
 
 #include "prism_export.h"
-#include <initializer_list>
+
+using ld = long double;
 
 /**
  * @file vector.hpp
@@ -10,10 +11,6 @@
  */
 
 namespace Prism {
-
-using ld = long double;
-
-class Point3; // Forward declaration of Point3 class
 
 /**
  * @class Vector3
@@ -37,20 +34,6 @@ class PRISM_EXPORT Vector3 {
      * @param v The vector to copy from.
      */
     Vector3(const Vector3& v);
-
-    /**
-     * @brief Constructs a Vector from a Point3.
-     * @param v The point to convert into a vector.
-     */
-    Vector3(const Point3& v);
-
-    /**
-     * @brief Constructs a Vector from an initializer list of coordinates.
-     * @param coords An initializer list containing the x, y, and z components.
-     * @throws std::invalid_argument if the initializer list does not contain exactly three
-     * elements.
-     */
-    Vector3(std::initializer_list<ld> coords);
 
     /**
      * @brief Checks if two vectors are equal.
@@ -181,13 +164,6 @@ class PRISM_EXPORT Vector3 {
     Vector3 cross(const Vector3& v) const;
 
     /**
-     * @brief Computes the cross product with another vector (operator overload).
-     * @param v The vector to compute the cross product with.
-     * @return The resulting vector.
-     */
-    Vector3 operator^(const Vector3& v) const;
-
-    /**
      * @brief Computes the magnitude (length) of the vector.
      * @return The magnitude as a scalar.
      */
@@ -200,9 +176,7 @@ class PRISM_EXPORT Vector3 {
      */
     Vector3 normalize() const;
 
-    ld x; ///< The x component of the vector.
-    ld y; ///< The y component of the vector.
-    ld z; ///< The z component of the vector.
+    ld x, y, z; ///< The x, y, and z components of the vector.
 };
 
 } // namespace Prism
