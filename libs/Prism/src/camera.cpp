@@ -49,11 +49,4 @@ Camera::~Camera() {
     delete pixel_delta_v;
 }
 
-Ray Camera::CameraIterator::operator*() const {
-    Point3 pixel_center = *camera->pixel_00_loc + (*camera->pixel_delta_u * current_x) -
-                          (*camera->pixel_delta_v * current_y);
-
-    return Ray(*camera->pos, pixel_center);
-}
-
 } // namespace Prism

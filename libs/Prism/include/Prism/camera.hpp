@@ -2,15 +2,15 @@
 #define PRISM_CAMERA_HPP_
 
 #include "prism_export.h"
+#include "Prism/point.hpp"
+#include "Prism/ray.hpp"
+#include "Prism/vector.hpp"
 #include <initializer_list>
 #include <iterator>
 namespace Prism {
 
 using ld = long double;
 
-class Vector3; // Forward declaration of Vector3 class
-class Point3; // Forward declaration of Point3 class
-class Ray; // Forward declaration of Ray class
 template <typename T> class Matrix;
 
 /**
@@ -37,7 +37,6 @@ class PRISM_EXPORT Camera {
     
     ~Camera();
 
-
     class CameraIterator {
       public:
         using iterator_category = std::forward_iterator_tag;
@@ -49,10 +48,13 @@ class PRISM_EXPORT Camera {
         CameraIterator(Camera* cam, int y, int x) : camera(cam), current_y(y), current_x(x) {
         }
 
-        // Gera o raio para o pixel atual
-        Ray operator*() const;
+        Ray operator*() const {
+            Point3 pixel_center = *camera->pixel_00_loc + (*camera->pixel_delta_u * current_x) -
+                          (*camera->pixel_delta_v * current_y);
 
-        // Avança para o próximo pixel
+            return Ray(*camera->pos, pixel_center);
+        }
+
         CameraIterator& operator++() {
             current_x++;
             if (current_x >= camera->pixel_width) {
@@ -62,7 +64,6 @@ class PRISM_EXPORT Camera {
             return *this;
         }
 
-        // Compara dois iteradores
         bool operator!=(const CameraIterator& other) const {
             return current_y != other.current_y || current_x != other.current_x;
         }
@@ -80,8 +81,6 @@ class PRISM_EXPORT Camera {
     CameraIterator end() {
         return CameraIterator(this, pixel_height, 0);
     }
-
-
 
     Point3* pos;
     Point3* aim;
