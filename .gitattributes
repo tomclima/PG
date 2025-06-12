@@ -1,0 +1,12 @@
+* text=auto
+
+*.cpp text
+*.hpp text
+*.txt text
+*.md text
+*.json text
+*.cmake text
+*.clang-format text
+CMakeLists.txt text
+.gitignore text
+.gitattributes text

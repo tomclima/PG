@@ -13,7 +13,7 @@ using ld = long double;
 class Ray;      // Forward declaration of Ray class
 class Material; // Forward declaration of Material class
 
-struct HitRecord {
+struct PRISM_EXPORT HitRecord {
     Point3 p;
     Vector3 normal;
     ld t;
