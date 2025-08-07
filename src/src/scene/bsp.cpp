@@ -1,4 +1,5 @@
 #include "Prism/scene/bsp.hpp"
+#include "Prism/core/style.hpp"
 
 #include <algorithm>
 #include <limits>
@@ -66,11 +67,28 @@ void BSPTree::build(BSPNode* node, const std::vector<Object*>& node_objects, int
     // Partition objects
     std::vector<Object*> front_objects, back_objects;
     for (auto obj : sorted_objects) {
-        double center = get_center(obj, axis);
-        if (center >= split_value)
-            front_objects.push_back(obj);
-        else
+        const auto& bbox = obj->get_bounding_box();
+        double min_axis, max_axis;
+        if (axis == 0) {
+            min_axis = bbox.min.x;
+            max_axis = bbox.max.x;
+        } else if (axis == 1) {
+            min_axis = bbox.min.y;
+            max_axis = bbox.max.y;
+        } else {
+            min_axis = bbox.min.z;
+            max_axis = bbox.max.z;
+        }
+
+        if (max_axis < split_value)
             back_objects.push_back(obj);
+        else if (min_axis > split_value)
+            front_objects.push_back(obj);
+        else {
+            // Straddles the plane, put in both
+            front_objects.push_back(obj);
+            back_objects.push_back(obj);
+        }
     }
 
     if (!front_objects.empty()) {
@@ -130,7 +148,7 @@ bool BSPTree::hit_closest_recursive(const BSPNode* node, const Ray& ray, double 
 
     // Compute intersection with plane
     if (dir_side != 0.0) {
-        double t_plane = (-(node->normal.dot(ray.origin())) + node->d) / dir_side;
+        double t_plane = -(node->normal.dot(ray.origin()) + node->d) / dir_side;
         if (t_plane > t_min && t_plane < closest_so_far) {
             HitRecord temp_rec;
             if (hit_closest_recursive(second, ray, t_min, closest_so_far, temp_rec)) {
@@ -142,7 +160,7 @@ bool BSPTree::hit_closest_recursive(const BSPNode* node, const Ray& ray, double 
             }
         }
     }
-
+    
     return hit_anything;
 }
 
@@ -152,7 +170,7 @@ bool BSPTree::hit_any(const Ray& ray, double t_min, double t_max, HitRecord& rec
 
 bool BSPTree::hit_any_recursive(const BSPNode* node, const Ray& ray, double t_min, double t_max, HitRecord& rec) const {
     if (!node) return false;
-
+    
     if (node->is_leaf()) {
         for (const auto& object : node->objects) {
             if (object->hit(ray, t_min, t_max, rec)) {
@@ -178,9 +196,9 @@ bool BSPTree::hit_any_recursive(const BSPNode* node, const Ray& ray, double t_mi
     if (hit_any_recursive(first, ray, t_min, t_max, rec)) {
         return true;
     }
-
+    
     if (dir_side != 0.0) {
-        double t_plane = -(node->normal.dot(ray.direction()) + node->d) / dir_side;
+        double t_plane = -(node->normal.dot(ray.origin()) + node->d) / dir_side;
         if (t_plane > t_min && t_plane < t_max) {
             if (hit_any_recursive(second, ray, t_min, t_max, rec)) {
                 return true;

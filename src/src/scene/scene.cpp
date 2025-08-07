@@ -14,6 +14,7 @@
 #include "Prism/core/style.hpp"
 #include "Prism/core/utils.hpp"
 #include "Prism/scene/octree.hpp"
+#include "Prism/scene/bsp.hpp"
 
 #include <chrono>
 #include <cmath>
@@ -352,6 +353,9 @@ void Scene::setAccelerationStructure(ACCELERATION acceleration) {
         break;
         case ACCELERATION::OCTREE:
         acceleration_structure_ = std::make_unique<Octree>(raw_objects);
+        break;
+        case ACCELERATION::BSP:
+        acceleration_structure_ = std::make_unique<BSPTree>(raw_objects);
         break;
         default:
         Style::logError("Unsupported acceleration structure type.");
