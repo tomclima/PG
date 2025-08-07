@@ -12,7 +12,7 @@
 
 int main() {
     try {
-        Prism::SceneParser("./data/input/scene.yml").parse(Prism::ACCELERATION::OCTREE).render();
+        Prism::SceneParser("./data/input/scene.yml").parse(Prism::ACCELERATION::BSP).render();
         // Prism::SceneParser("./data/input/scene.yml").parse(Prism::ACCELERATION::NONE).render();
 
     } catch (const std::exception& e) {
